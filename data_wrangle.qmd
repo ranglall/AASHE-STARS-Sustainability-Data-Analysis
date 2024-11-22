@@ -1,0 +1,19 @@
+---
+title: "Data Wrangle"
+author: "Breann Ranglall"
+format: pdf
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+## Data Wrangling
+
+Read in the csv
+
+```{r}
+data <- read_xlsx("OP-18_Waste_Minimization_and_Diversion_2020.xlsx")
+```
