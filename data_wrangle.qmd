@@ -17,3 +17,37 @@ Read in the csv
 ```{r}
 data <- read_xlsx("OP-18_Waste_Minimization_and_Diversion_2020.xlsx")
 ```
+
+Select and reshape the data
+
+```{r}
+# Wrangle data to create a long format
+tidy_data <- data |>
+  pivot_longer(
+    cols = c(`Materials recycled, performance year`, `Materials recycled, baseline year`,
+             `Materials composted, performance year`, `Materials composted, baseline year`,
+             `Materials donated or re-sold, performance year`, `Materials donated or re-sold, baseline year`,
+             `Materials disposed through post-recycling residual conversion, performance year`, 
+             `Materials disposed through post-recycling residual conversion, baseline year`,
+             `Materials disposed in a solid waste landfill or incinerator, performance year`, 
+             `Materials disposed in a solid waste landfill or incinerator, baseline year`,
+             `Total waste generated, performance year`, `Total waste generated, baseline year`),
+    names_to = c("Material_Type", "Year_Type"),
+    names_sep = ", ",
+    values_to = "Value"
+  ) |>
+  mutate(
+    Year_Type = str_trim(Year_Type)  # Remove any leading/trailing whitespace
+  )
+
+```
+
+Clean and organize the data
+
+```{r}
+clean_data <- tidy_data |>
+  filter(!is.na(Value)) |>  # Remove rows with missing values
+  mutate(
+    Value = as.numeric(Value)
+  )
+```
