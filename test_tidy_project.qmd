@@ -1,0 +1,96 @@
+---
+title: "test_tidy"
+author: "Alex Wodarski"
+format: html
+editor: visual
+---
+```{r}
+#| warning: false
+library(tidyverse)
+library(readxl)
+library(dplyr)
+```
+
+```{r}
+# Read data from excel spreadsheet
+
+data <- read_excel("OP-18_Waste_Minimization_and_Diversion_2020.xlsx")
+```
+
+```{r}
+df <- data
+
+# Converting 'chr' to 'numeric'
+#| warning: false
+
+df$'Materials recycled, performance year' <- as.numeric(df$'Materials recycled, performance year')
+df$'Materials recycled, baseline year' <- as.numeric(df$'Materials recycled, baseline year')
+df$'Materials composted, performance year' <- as.numeric(df$'Materials composted, performance year')
+df$'Materials composted, baseline year' <- as.numeric(df$'Materials composted, baseline year')
+df$'Materials donated or re-sold, performance year' <- as.numeric(df$'Materials donated or re-sold, performance year')
+df$'Materials donated or re-sold, baseline year' <- as.numeric(df$'Materials donated or re-sold, baseline year')
+df$'Materials disposed through post-recycling residual conversion, performance year' <- as.numeric(df$'Materials disposed through post-recycling residual conversion, performance year')
+df$'Materials disposed through post-recycling residual conversion, baseline year' <- as.numeric(df$'Materials disposed through post-recycling residual conversion, baseline year')
+df$'Materials disposed in a solid waste landfill or incinerator, performance year' <- as.numeric(df$'Materials disposed in a solid waste landfill or incinerator, performance year')
+df$'Materials disposed in a solid waste landfill or incinerator, baseline year' <- as.numeric(df$'Materials disposed in a solid waste landfill or incinerator, baseline year')
+df$'Total waste generated, performance year' <- as.numeric(df$'Total waste generated, performance year')
+df$'Total waste generated, baseline year' <- as.numeric(df$'Total waste generated, baseline year')
+df$'Start date, performance year or 3-year period' <- as.numeric(df$'Start date, performance year or 3-year period')
+df$'End date, performance year or 3-year period' <- as.numeric(df$'End date, performance year or 3-year period')
+df$'Start date, baseline year or 3-year period' <- as.numeric(df$'Start date, baseline year or 3-year period')
+df$'End date, baseline year or 3-year period' <- as.numeric(df$'End date, baseline year or 3-year period')
+df$'Number of students resident on-site, performance year' <- as.numeric(df$'Number of students resident on-site, performance year')
+df$'Number of students resident on-site, baseline year' <- as.numeric(df$'Number of students resident on-site, baseline year')
+df$'Number of employees resident on-site, performance year' <- as.numeric(df$'Number of employees resident on-site, performance year')
+df$'Number of employees resident on-site, baseline year' <- as.numeric(df$'Number of employees resident on-site, baseline year')
+df$'Number of other individuals resident on-site, performance year' <- as.numeric(df$'Number of other individuals resident on-site, performance year')
+df$'Number of other individuals resident on-site, baseline year' <- as.numeric(df$'Number of other individuals resident on-site, baseline year')
+df$'Total full-time equivalent student enrollment, performance year' <- as.numeric(df$'Total full-time equivalent student enrollment, performance year')
+df$'Total full-time equivalent student enrollment, baseline year' <- as.numeric(df$'Total full-time equivalent student enrollment, baseline year')
+df$'Full-time equivalent of employees, performance year' <- as.numeric(df$'Full-time equivalent of employees, performance year')
+df$'Full-time equivalent of employees, baseline year' <- as.numeric(df$'Full-time equivalent of employees, baseline year')
+df$'Full-time equivalent of students enrolled in exclusively in distance education, performance year' <- as.numeric(df$'Full-time equivalent of students enrolled in exclusively in distance education, performance year')
+df$'Full-time equivalent of students enrolled exclusively in distance education, baseline year' <- as.numeric(df$'Full-time equivalent of students enrolled exclusively in distance education, baseline year')
+df$'Weighted campus users, performance year' <- as.numeric(df$'Weighted campus users, performance year')
+df$'Weighted campus users, baseline year' <- as.numeric(df$'Weighted campus users, baseline year')
+df$'Total waste generated per weighted campus user, performance year' <- as.numeric(df$'Total waste generated per weighted campus user, performance year')
+df$'Total waste generated per weighted campus user, baseline year' <- as.numeric(df$'Total waste generated per weighted campus user, baseline year')
+df$'Weighted campus users, performance year' <- as.numeric(df$'Weighted campus users, performance year')
+df$'Weighted campus users, baseline year' <- as.numeric(df$'Weighted campus users, baseline year')
+df$'Percentage reduction in total waste generated per weighted campus user from baseline' <- as.numeric(df$'Percentage reduction in total waste generated per weighted campus user from baseline')
+df$'Percentage of materials diverted from the landfill or incinerator by recycling, composting, ...' <- as.numeric(df$'Percentage of materials diverted from the landfill or incinerator by recycling, composting, ...')
+df$'Percentage of materials diverted from the landfill or incinerator (including up to 10 percent ...' <- as.numeric(df$'Percentage of materials diverted from the landfill or incinerator (including up to 10 percent ...')
+```
+
+
+```{r}
+# Converting 'chr' to 'date'
+
+df$'Last Updated' <- as.Date(df$'Last Updated')
+df$'Start date, performance year or 3-year period' <- as.Date(df$'Start date, performance year or 3-year period', origin = "1899-12-30")
+df$'End date, performance year or 3-year period' <- as.Date(df$'End date, performance year or 3-year period', origin = "1899-12-30")
+df$'Start date, baseline year or 3-year period' <- as.Date(df$'Start date, baseline year or 3-year period', origin = "1899-12-30")
+df$'End date, baseline year or 3-year period' <- as.Date(df$'End date, baseline year or 3-year period', origin = "1899-12-30")
+```
+
+```{r}
+df_long <- df |>
+  select(Institution, where(is.numeric)) |>
+  pivot_longer(
+    cols = starts_with("Materials") | starts_with("Total") | starts_with("Number") | starts_with("Full-Time") | starts_with("Weighted"),
+    names_to = c("Variable_Type", "Year"),
+    names_sep = ", ",
+    values_to = "Amount"
+  )
+```
+
+```{r}
+df_non_numeric <- df |>
+  select(where(~ !is.numeric(.)))
+data_test <- left_join(df_long, df_non_numeric, by = "Institution")
+```
+
+```{r}
+filter_test <- data_test |>
+  filter(Institution == "American University")
+```
