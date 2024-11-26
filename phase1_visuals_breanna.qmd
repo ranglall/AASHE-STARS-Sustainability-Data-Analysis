@@ -139,3 +139,29 @@ ggplot(data_test, aes(x = Institution, y = `Percentage of materials diverted fro
   ) +
   coord_flip()
 ```
+
+## Viz 3
+
+```{r}
+wrapped_title <- str_wrap("Institutional Waste Diversion Performance by Material Type", width = 30)
+
+# Plot using geom_col to visualize the categories
+ggplot(data_test, aes(x = Institution, y = `Percentage of materials diverted from the landfill or incinerator by recycling, composting, ...`, fill = Variable_Type)) +
+  geom_col() +
+  theme_minimal() +
+  labs(
+    title = wrapped_title,
+    x = "Institution",
+    y = "Percentage Diverted",
+    fill = "Variable Type",
+    caption = "Source: AASHE STAR"
+  ) +
+  theme(
+    legend.text = element_text(size = 8),  # Make legend text smaller
+    legend.title = element_text(size = 10), # Adjust legend title size
+    legend.key.size = unit(0.5, "cm"),  # Reduce legend key size
+    legend.spacing.y = unit(0.2, "cm")    # Reduce space between legend items
+  ) +
+  coord_flip()
+```
+
