@@ -14,67 +14,67 @@ library(dplyr)
 
 ```{r}
 # Read data from excel spreadsheet
-data <- read_excel("OP-18_Waste_Minimization_and_Diversion_2024.xlsx")
+dataf <- read_excel("OP-18_Waste_Minimization_and_Diversion_2024.xlsx")
 ```
 
 ```{r}
-df <- data
+dataframe <- dataf
 
 # Converting 'chr' to 'numeric'
 #| warning: false
 
-df$'Materials recycled, performance year' <- as.numeric(df$'Materials recycled, performance year')
-df$'Materials recycled, baseline year' <- as.numeric(df$'Materials recycled, baseline year')
-df$'Materials composted, performance year' <- as.numeric(df$'Materials composted, performance year')
-df$'Materials composted, baseline year' <- as.numeric(df$'Materials composted, baseline year')
-df$'Materials donated or re-sold, performance year' <- as.numeric(df$'Materials donated or re-sold, performance year')
-df$'Materials donated or re-sold, baseline year' <- as.numeric(df$'Materials donated or re-sold, baseline year')
-df$'Materials disposed through post-recycling residual conversion, performance year' <- as.numeric(df$'Materials disposed through post-recycling residual conversion, performance year')
-df$'Materials disposed through post-recycling residual conversion, baseline year' <- as.numeric(df$'Materials disposed through post-recycling residual conversion, baseline year')
-df$'Materials disposed in a solid waste landfill or incinerator, performance year' <- as.numeric(df$'Materials disposed in a solid waste landfill or incinerator, performance year')
-df$'Materials disposed in a solid waste landfill or incinerator, baseline year' <- as.numeric(df$'Materials disposed in a solid waste landfill or incinerator, baseline year')
-df$'Total waste generated, performance year' <- as.numeric(df$'Total waste generated, performance year')
-df$'Total waste generated, baseline year' <- as.numeric(df$'Total waste generated, baseline year')
-df$'Start date, performance year or 3-year period' <- as.numeric(df$'Start date, performance year or 3-year period')
-df$'End date, performance year or 3-year period' <- as.numeric(df$'End date, performance year or 3-year period')
-df$'Start date, baseline year or 3-year period' <- as.numeric(df$'Start date, baseline year or 3-year period')
-df$'End date, baseline year or 3-year period' <- as.numeric(df$'End date, baseline year or 3-year period')
-df$'Number of students resident on-site, performance year' <- as.numeric(df$'Number of students resident on-site, performance year')
-df$'Number of students resident on-site, baseline year' <- as.numeric(df$'Number of students resident on-site, baseline year')
-df$'Number of employees resident on-site, performance year' <- as.numeric(df$'Number of employees resident on-site, performance year')
-df$'Number of employees resident on-site, baseline year' <- as.numeric(df$'Number of employees resident on-site, baseline year')
-df$'Number of other individuals resident on-site, performance year' <- as.numeric(df$'Number of other individuals resident on-site, performance year')
-df$'Number of other individuals resident on-site, baseline year' <- as.numeric(df$'Number of other individuals resident on-site, baseline year')
-df$'Total full-time equivalent student enrollment, performance year' <- as.numeric(df$'Total full-time equivalent student enrollment, performance year')
-df$'Total full-time equivalent student enrollment, baseline year' <- as.numeric(df$'Total full-time equivalent student enrollment, baseline year')
-df$'Full-time equivalent of employees, performance year' <- as.numeric(df$'Full-time equivalent of employees, performance year')
-df$'Full-time equivalent of employees, baseline year' <- as.numeric(df$'Full-time equivalent of employees, baseline year')
-df$'Full-time equivalent of students enrolled in exclusively in distance education, performance year' <- as.numeric(df$'Full-time equivalent of students enrolled in exclusively in distance education, performance year')
-df$'Full-time equivalent of students enrolled exclusively in distance education, baseline year' <- as.numeric(df$'Full-time equivalent of students enrolled exclusively in distance education, baseline year')
-df$'Weighted campus users, performance year' <- as.numeric(df$'Weighted campus users, performance year')
-df$'Weighted campus users, baseline year' <- as.numeric(df$'Weighted campus users, baseline year')
-df$'Total waste generated per weighted campus user, performance year' <- as.numeric(df$'Total waste generated per weighted campus user, performance year')
-df$'Total waste generated per weighted campus user, baseline year' <- as.numeric(df$'Total waste generated per weighted campus user, baseline year')
-df$'Weighted campus users, performance year' <- as.numeric(df$'Weighted campus users, performance year')
-df$'Weighted campus users, baseline year' <- as.numeric(df$'Weighted campus users, baseline year')
-df$'Percentage reduction in total waste generated per weighted campus user from baseline' <- as.numeric(df$'Percentage reduction in total waste generated per weighted campus user from baseline')
-df$'Percentage of materials diverted from the landfill or incinerator by recycling, composting, ...' <- as.numeric(df$'Percentage of materials diverted from the landfill or incinerator by recycling, composting, ...')
-df$'Percentage of materials diverted from the landfill or incinerator (including up to 10 percent ...' <- as.numeric(df$'Percentage of materials diverted from the landfill or incinerator (including up to 10 percent ...')
+dataframe$'Materials recycled, performance year' <- as.numeric(dataframe$'Materials recycled, performance year')
+dataframe$'Materials recycled, baseline year' <- as.numeric(dataframe$'Materials recycled, baseline year')
+dataframe$'Materials composted, performance year' <- as.numeric(dataframe$'Materials composted, performance year')
+dataframe$'Materials composted, baseline year' <- as.numeric(dataframe$'Materials composted, baseline year')
+dataframe$'Materials donated or re-sold, performance year' <- as.numeric(dataframe$'Materials donated or re-sold, performance year')
+dataframe$'Materials donated or re-sold, baseline year' <- as.numeric(dataframe$'Materials donated or re-sold, baseline year')
+dataframe$'Materials disposed through post-recycling residual conversion, performance year' <- as.numeric(dataframe$'Materials disposed through post-recycling residual conversion, performance year')
+dataframe$'Materials disposed through post-recycling residual conversion, baseline year' <- as.numeric(dataframe$'Materials disposed through post-recycling residual conversion, baseline year')
+dataframe$'Materials disposed in a solid waste landataframeill or incinerator, performance year' <- as.numeric(dataframe$'Materials disposed in a solid waste landataframeill or incinerator, performance year')
+dataframe$'Materials disposed in a solid waste landataframeill or incinerator, baseline year' <- as.numeric(dataframe$'Materials disposed in a solid waste landataframeill or incinerator, baseline year')
+dataframe$'Total waste generated, performance year' <- as.numeric(dataframe$'Total waste generated, performance year')
+dataframe$'Total waste generated, baseline year' <- as.numeric(dataframe$'Total waste generated, baseline year')
+dataframe$'Start date, performance year or 3-year period' <- as.numeric(dataframe$'Start date, performance year or 3-year period')
+dataframe$'End date, performance year or 3-year period' <- as.numeric(dataframe$'End date, performance year or 3-year period')
+dataframe$'Start date, baseline year or 3-year period' <- as.numeric(dataframe$'Start date, baseline year or 3-year period')
+dataframe$'End date, baseline year or 3-year period' <- as.numeric(dataframe$'End date, baseline year or 3-year period')
+dataframe$'Number of students resident on-site, performance year' <- as.numeric(dataframe$'Number of students resident on-site, performance year')
+dataframe$'Number of students resident on-site, baseline year' <- as.numeric(dataframe$'Number of students resident on-site, baseline year')
+dataframe$'Number of employees resident on-site, performance year' <- as.numeric(dataframe$'Number of employees resident on-site, performance year')
+dataframe$'Number of employees resident on-site, baseline year' <- as.numeric(dataframe$'Number of employees resident on-site, baseline year')
+dataframe$'Number of other individuals resident on-site, performance year' <- as.numeric(dataframe$'Number of other individuals resident on-site, performance year')
+dataframe$'Number of other individuals resident on-site, baseline year' <- as.numeric(dataframe$'Number of other individuals resident on-site, baseline year')
+dataframe$'Total full-time equivalent student enrollment, performance year' <- as.numeric(dataframe$'Total full-time equivalent student enrollment, performance year')
+dataframe$'Total full-time equivalent student enrollment, baseline year' <- as.numeric(dataframe$'Total full-time equivalent student enrollment, baseline year')
+dataframe$'Full-time equivalent of employees, performance year' <- as.numeric(dataframe$'Full-time equivalent of employees, performance year')
+dataframe$'Full-time equivalent of employees, baseline year' <- as.numeric(dataframe$'Full-time equivalent of employees, baseline year')
+dataframe$'Full-time equivalent of students enrolled in exclusively in distance education, performance year' <- as.numeric(dataframe$'Full-time equivalent of students enrolled in exclusively in distance education, performance year')
+dataframe$'Full-time equivalent of students enrolled exclusively in distance education, baseline year' <- as.numeric(dataframe$'Full-time equivalent of students enrolled exclusively in distance education, baseline year')
+dataframe$'Weighted campus users, performance year' <- as.numeric(dataframe$'Weighted campus users, performance year')
+dataframe$'Weighted campus users, baseline year' <- as.numeric(dataframe$'Weighted campus users, baseline year')
+dataframe$'Total waste generated per weighted campus user, performance year' <- as.numeric(dataframe$'Total waste generated per weighted campus user, performance year')
+dataframe$'Total waste generated per weighted campus user, baseline year' <- as.numeric(dataframe$'Total waste generated per weighted campus user, baseline year')
+dataframe$'Weighted campus users, performance year' <- as.numeric(dataframe$'Weighted campus users, performance year')
+dataframe$'Weighted campus users, baseline year' <- as.numeric(dataframe$'Weighted campus users, baseline year')
+dataframe$'Percentage reduction in total waste generated per weighted campus user from baseline' <- as.numeric(dataframe$'Percentage reduction in total waste generated per weighted campus user from baseline')
+dataframe$'Percentage of materials diverted from the landataframeill or incinerator by recycling, composting, ...' <- as.numeric(dataframe$'Percentage of materials diverted from the landataframeill or incinerator by recycling, composting, ...')
+dataframe$'Percentage of materials diverted from the landataframeill or incinerator (including up to 10 percent ...' <- as.numeric(dataframe$'Percentage of materials diverted from the landataframeill or incinerator (including up to 10 percent ...')
 ```
 
 ```{r}
 # Converting 'chr' to 'date'
 
-df$'Last Updated' <- as.Date(df$'Last Updated')
-df$'Start date, performance year or 3-year period' <- as.Date(df$'Start date, performance year or 3-year period', origin = "1899-12-30")
-df$'End date, performance year or 3-year period' <- as.Date(df$'End date, performance year or 3-year period', origin = "1899-12-30")
-df$'Start date, baseline year or 3-year period' <- as.Date(df$'Start date, baseline year or 3-year period', origin = "1899-12-30")
-df$'End date, baseline year or 3-year period' <- as.Date(df$'End date, baseline year or 3-year period', origin = "1899-12-30")
+dataframe$'Last Updated' <- as.Date(dataframe$'Last Updated')
+dataframe$'Start date, performance year or 3-year period' <- as.Date(dataframe$'Start date, performance year or 3-year period', origin = "1899-12-30")
+dataframe$'End date, performance year or 3-year period' <- as.Date(dataframe$'End date, performance year or 3-year period', origin = "1899-12-30")
+dataframe$'Start date, baseline year or 3-year period' <- as.Date(dataframe$'Start date, baseline year or 3-year period', origin = "1899-12-30")
+dataframe$'End date, baseline year or 3-year period' <- as.Date(dataframe$'End date, baseline year or 3-year period', origin = "1899-12-30")
 ```
 
 ```{r}
 peer_schools<-c("Bemidji State University","Carleton College","College of St. Benedict/St. John’s University", "Concordia Moorhead","Macalester College","Winona State University","University of Minnesota, Twin Cities","University of Minnesota, Morris","UMN – Duluth","Augsburg University","Concordia in St. Paul","Hamline University","St. Kate’s University","St. Olaf College","University of St. Thomas")
-peers <-  df|>
+peers <-  dataframe|>
   filter(Institution %in% peer_schools)
 # Summary statistics for all numeric variables
 numeric_summary <- peers |>
