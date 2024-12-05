@@ -73,7 +73,7 @@ dataframe$'End date, baseline year or 3-year period' <- as.Date(dataframe$'End d
 ```
 
 ```{r}
-peer_schools<-c("Bemidji State University","Carleton College","College of St. Benedict/St. John’s University", "Concordia Moorhead","Macalester College","Winona State University","University of Minnesota, Twin Cities","University of Minnesota, Morris","UMN – Duluth","Augsburg University","Concordia in St. Paul","Hamline University","St. Kate’s University","St. Olaf College","University of St. Thomas")
+peer_schools<-c("Bemidji State University","Carleton College","College of St. Benedict/St. John’s University", "Concordia Moorhead","Macalester College","Winona State University","University of Minnesota, Twin Cities","University of Minnesota, Morris","UMN – Duluth","Augsburg University","Concordia in St. Paul","Hamline University","St. Kate’s University","St. Olaf College","University of St. Thomas") 
 peers <-  dataframe|>
   filter(Institution %in% peer_schools)
 # Summary statistics for all numeric variables
