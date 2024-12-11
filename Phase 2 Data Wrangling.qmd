@@ -1,6 +1,6 @@
 ---
-title: "test_tidy"
-author: "Alex Wodarski"
+title: "Phase 2 Data Wrangling"
+author: "Tenzin"
 format: html
 editor: visual
 ---
@@ -89,4 +89,4 @@ View(peers)
 View(numeric_summary)
 ```
 
-We can compare St. Thomas with all the summary statistics. One thing to note out of the peer institutions, is that the University of Minnesota Twin Cities skews the results as it has much larger numbers than all the other Institutions that we are comparing too. Because of this St. Thomas ends up being below the average for the statistics. The main assumption for the reason would be that the University of Minnesota Twin Cities is just a much larger school compared to the others on the list and therefore their numbers are much higher. St Thomas rank fluctuates as 2 or 3 for the variables behind the University of Minnesota, and they fluctuate with Carleton College whon has similar numbers for most. 
+We can compare St. Thomas with all the summary statistics. One thing to note out of the peer institutions, is that the University of Minnesota Twin Cities skews the results as it has much larger numbers than all the other Institutions that we are comparing too. Because of this St. Thomas ends up being below the average for the statistics. The main assumption for the reason would be that the University of Minnesota Twin Cities is just a much larger school compared to the others on the list and therefore their numbers are much higher. St Thomas rank fluctuates as 2 or 3 for the variables behind the University of Minnesota, and they fluctuate with Carleton College whon has similar numbers for most.
