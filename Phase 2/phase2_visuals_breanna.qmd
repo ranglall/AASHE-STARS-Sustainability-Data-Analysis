@@ -1,8 +1,0 @@
----
-title: "Phase 2 Data Viz"
-author: "Breanna Ranglall"
-format: html
-editor: visual
----
-
-Phase 2
