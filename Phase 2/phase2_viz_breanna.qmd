@@ -1,0 +1,84 @@
+---
+title: "Phase 2 Viz"
+author: "Breanna Ranglall"
+format: html
+editor: visual
+---
+
+```{r}
+#| warning: false
+
+library(tidyverse)
+library(readxl)
+library(dplyr)
+```
+
+### Pull in Clean Data
+
+```{r}
+# Read in the CSV file
+df <- read.csv("peerspop.csv")
+
+# Clean and prepare the data
+clean_df <- df |>
+  select(
+    Institution, 
+    Materials.recycled..performance.year, 
+    Materials.composted..performance.year, 
+    Undergraduate.Population
+  ) |>
+  mutate(
+    Materials.recycled = as.numeric(Materials.recycled..performance.year),
+    Materials.composted = as.numeric(Materials.composted..performance.year),
+    Undergraduate.Population = as.numeric(Undergraduate.Population)
+  ) |>
+  filter(!is.na(Materials.recycled), !is.na(Materials.composted), !is.na(Undergraduate.Population))
+
+```
+
+### Viz 1
+
+```{r}
+# Plot 1: Scatter Plot of Materials Composted vs. Materials Recycled
+ggplot(clean_df, aes(x = Materials.recycled, y = Materials.composted, size = Undergraduate.Population, color = Institution)) +
+  geom_point(shape = 15) + # Shape changed to square
+  labs(
+    title = "Materials Composted vs. Materials Recycled by Institution (Bubble Size = Population)",
+    x = "Materials Recycled (Tons)",
+    y = "Materials Composted (Tons)",
+    caption = 'This line plot compares the recycled and composted materials for each institution. \nThe University of St. Thomas can be observed relative to other universities with similar \npopulation, allowing for insights into its recycling and composting efforts.'
+
+  ) +
+  scale_size_continuous(range = c(3, 15)) +
+  theme_minimal()
+
+```
+
+### Viz 2
+
+```{r}
+# Plot 2: Line Plot of Recycled and Composted Materials for Institutions
+
+# Arrange data to ensure institutions are in order
+clean_df_sorted <- clean_df |>
+  arrange(Institution)
+
+# Create the line plot
+ggplot(clean_df_sorted, aes(x = Institution)) +
+  geom_line(aes(y = `Materials.recycled`, color = 'Recycled Materials'), group = 1) +
+  geom_point(aes(y = `Materials.recycled`, color = 'Recycled Materials')) +
+  geom_line(aes(y = `Materials.composted`, color = 'Composted Materials'), group = 1) +
+  geom_point(aes(y = `Materials.composted`, color = 'Composted Materials')) +
+  scale_color_manual(values = c('Recycled Materials' = 'blue', 'Composted Materials' = 'green')) +
+  labs(
+    title = 'Recycled and Composted Materials by Institution (Performance Year)',
+    x = 'Institution',
+    y = 'Amount (Tons)',
+    color = 'Material Type',
+    caption = 'This line plot compares the recycled and composted materials for each institution. \nThe University of St. Thomas can be observed relative to other universities, \nallowing for insights into its recycling and composting efforts.'
+
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
