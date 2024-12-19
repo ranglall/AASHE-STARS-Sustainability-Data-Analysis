@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>written narrative</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Phase3_written_narrative_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Phase3_written_narrative_files/libs/quarto-html/quarto.js"></script>
+<script src="Phase3_written_narrative_files/libs/quarto-html/popper.min.js"></script>
+<script src="Phase3_written_narrative_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Phase3_written_narrative_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Phase3_written_narrative_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Phase3_written_narrative_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Phase3_written_narrative_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Phase3_written_narrative_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Phase3_written_narrative_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">written narrative</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<style type="text/css">
+  h1 {
+    font-size: 65px;  
+    font-weight: bold;           
+                 
+  }
+
+</style>
+</div>
+<pre><code>## -   By Tenzin Dhondup, Nimo Hassan, Breanna Ranglall, Alexander Wodarski</code></pre>
+<p><strong>For our final group project in DASC 130, we were assigned five different credit areas by the Office of Sustainability Initiatives (OSI): AC-8: Campus as Living Lab, OP-2: Greenhouse Gas Emissions, OP-16: Commute Modal Split, OP-18: Waste Minimization and Diversion, and OP-21: Water Use. Our team decided to focus on OP-18: Waste Minimization and Diversion, comparing statistics between the University of St.&nbsp;Thomas and other Minnesota peer institutions. Our main objectives from OSI were to examine changes over time in this credit area, analyze St.&nbsp;Thomas’s performance in comparison to our peer institutions, and present our findings in a more visually engaging manner. We have provided a self-contained and reproducible document that can help you analyze different statistics we have found interesting to review and take into consideration.</strong></p>
+<p>````<br>
+## Data Tidying/Wrangling</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading needed libraries </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Read data from excel spreadsheets</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data from excel spreadsheet</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dataf <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"OP-18_Waste_Minimization_and_Diversion_2024.xlsx"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>pop_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"updated_school_population.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Converting ‘chr’ to ‘numeric’</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dataframe <span class="ot">&lt;-</span> dataf</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Converting 'chr' to 'numeric'</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials recycled, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials recycled, performance year'</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials recycled, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials recycled, baseline year'</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials composted, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials composted, performance year'</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials composted, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials composted, baseline year'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials donated or re-sold, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials donated or re-sold, performance year'</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials donated or re-sold, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials donated or re-sold, baseline year'</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials disposed through post-recycling residual conversion, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials disposed through post-recycling residual conversion, performance year'</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials disposed through post-recycling residual conversion, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials disposed through post-recycling residual conversion, baseline year'</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials disposed in a solid waste landfill or incinerator, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials disposed in a solid waste landfill or incinerator, performance year'</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Materials disposed in a solid waste landfill or incinerator, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Materials disposed in a solid waste landfill or incinerator, baseline year'</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Total waste generated, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Total waste generated, performance year'</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Total waste generated, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Total waste generated, baseline year'</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Start date, performance year or 3-year period'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Start date, performance year or 3-year period'</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'End date, performance year or 3-year period'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'End date, performance year or 3-year period'</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Start date, baseline year or 3-year period'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Start date, baseline year or 3-year period'</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'End date, baseline year or 3-year period'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'End date, baseline year or 3-year period'</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Number of students resident on-site, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Number of students resident on-site, performance year'</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Number of students resident on-site, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Number of students resident on-site, baseline year'</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Number of employees resident on-site, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Number of employees resident on-site, performance year'</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Number of employees resident on-site, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Number of employees resident on-site, baseline year'</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Number of other individuals resident on-site, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Number of other individuals resident on-site, performance year'</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Number of other individuals resident on-site, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Number of other individuals resident on-site, baseline year'</span>)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Total full-time equivalent student enrollment, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Total full-time equivalent student enrollment, performance year'</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Total full-time equivalent student enrollment, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Total full-time equivalent student enrollment, baseline year'</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Full-time equivalent of employees, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Full-time equivalent of employees, performance year'</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Full-time equivalent of employees, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Full-time equivalent of employees, baseline year'</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Full-time equivalent of students enrolled in exclusively in distance education, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Full-time equivalent of students enrolled in exclusively in distance education, performance year'</span>)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Full-time equivalent of students enrolled exclusively in distance education, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Full-time equivalent of students enrolled exclusively in distance education, baseline year'</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Weighted campus users, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Weighted campus users, performance year'</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Weighted campus users, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Weighted campus users, baseline year'</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Total waste generated per weighted campus user, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Total waste generated per weighted campus user, performance year'</span>)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Total waste generated per weighted campus user, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Total waste generated per weighted campus user, baseline year'</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Weighted campus users, performance year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Weighted campus users, performance year'</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Weighted campus users, baseline year'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Weighted campus users, baseline year'</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Percentage reduction in total waste generated per weighted campus user from baseline'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Percentage reduction in total waste generated per weighted campus user from baseline'</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Percentage of materials diverted from the landfill or incinerator by recycling, composting, ...'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Percentage of materials diverted from the landfill or incinerator by recycling, composting, ...'</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Percentage of materials diverted from the landfill or incinerator (including up to 10 percent ...'</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataframe<span class="sc">$</span><span class="st">'Percentage of materials diverted from the landfill or incinerator (including up to 10 percent ...'</span>)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace the single NA with 0</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace NA values with 0 for the specified columns</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Total waste generated, baseline year</span><span class="st">`</span>[<span class="fu">is.na</span>(dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Total waste generated, baseline year</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Weighted campus users, baseline year</span><span class="st">`</span>[<span class="fu">is.na</span>(dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Weighted campus users, baseline year</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Total waste generated, performance year</span><span class="st">`</span>[<span class="fu">is.na</span>(dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Total waste generated, performance year</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Weighted campus users, performance year</span><span class="st">`</span>[<span class="fu">is.na</span>(dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Weighted campus users, performance year</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Materials recycled, performance year</span><span class="st">`</span>[<span class="fu">is.na</span>(dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Materials recycled, performance year</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Materials composted, performance year</span><span class="st">`</span>[<span class="fu">is.na</span>(dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Materials composted, performance year</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Materials donated or re-sold, performance year</span><span class="st">`</span>[<span class="fu">is.na</span>(dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Materials donated or re-sold, performance year</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Materials disposed in a solid waste landfill or incinerator, performance year</span><span class="st">`</span>[<span class="fu">is.na</span>(dataframe<span class="sc">$</span><span class="st">`</span><span class="at">Materials disposed in a solid waste landfill or incinerator, performance year</span><span class="st">`</span>)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Rename some Universities</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pop_data<span class="sc">$</span>Institution[pop_data<span class="sc">$</span>Institution <span class="sc">==</span> <span class="st">"University of Minnesota Twin Cities"</span>] <span class="ot">&lt;-</span> <span class="st">"University of Minnesota, Twin Cities"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pop_data<span class="sc">$</span>Institution[pop_data<span class="sc">$</span>Institution <span class="sc">==</span> <span class="st">"University of Minnesota Crookston"</span>] <span class="ot">&lt;-</span> <span class="st">"University of Minnesota, Crookston"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>pop_data<span class="sc">$</span>Institution[pop_data<span class="sc">$</span>Institution <span class="sc">==</span> <span class="st">"University of Minnesota Morris"</span>] <span class="ot">&lt;-</span> <span class="st">"University of Minnesota, Morris"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Converting ‘chr’ to ‘date’</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Last Updated'</span> <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dataframe<span class="sc">$</span><span class="st">'Last Updated'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Start date, performance year or 3-year period'</span> <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dataframe<span class="sc">$</span><span class="st">'Start date, performance year or 3-year period'</span>, <span class="at">origin =</span> <span class="st">"1899-12-30"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'End date, performance year or 3-year period'</span> <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dataframe<span class="sc">$</span><span class="st">'End date, performance year or 3-year period'</span>, <span class="at">origin =</span> <span class="st">"1899-12-30"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'Start date, baseline year or 3-year period'</span> <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dataframe<span class="sc">$</span><span class="st">'Start date, baseline year or 3-year period'</span>, <span class="at">origin =</span> <span class="st">"1899-12-30"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>dataframe<span class="sc">$</span><span class="st">'End date, baseline year or 3-year period'</span> <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dataframe<span class="sc">$</span><span class="st">'End date, baseline year or 3-year period'</span>, <span class="at">origin =</span> <span class="st">"1899-12-30"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>pop_data<span class="sc">$</span>Undergraduate.Population <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(pop_data<span class="sc">$</span>Undergraduate.Population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Combine Both Spreadsheets</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>peer_schools <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Iowa State University"</span>, <span class="st">"University of Minnesota, Twin Cities"</span>, <span class="st">"University of St. Thomas"</span>, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Macalester College"</span>, <span class="st">"Gustavus Adolphus College"</span>, <span class="st">"University of Wisconsin-Madison"</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Marquette University"</span>, <span class="st">"University of Wisconsin-Eau Claire"</span>, </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"University of Wisconsin-Green Bay"</span>, <span class="st">"University of Wisconsin-Oshkosh"</span>, </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"University of Wisconsin-Platteville"</span>, <span class="st">"University of Wisconsin-Stevens Point"</span>, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"University of Wisconsin-River Falls"</span>, <span class="st">"University of Minnesota, Morris"</span>, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"University of Minnesota, Crookston"</span>,<span class="st">"Concordia University"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Carleton College"</span>, <span class="st">"South Dakota State University"</span>, </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"University of South Dakota"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>schools_to_exclude <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Marquette University"</span>, <span class="st">"University of Wisconsin-Green Bay"</span>, <span class="st">"University of Minnesota, Crookston"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>peers <span class="ot">&lt;-</span>  dataframe<span class="sc">|&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Institution <span class="sc">%in%</span> peer_schools)<span class="sc">|&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(pop_data,<span class="at">by =</span> <span class="st">"Institution"</span>)<span class="sc">|&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Undergraduate.Population<span class="sc">&lt;</span><span class="dv">11000</span>)<span class="sc">|&gt;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>Institution <span class="sc">%in%</span> schools_to_exclude)<span class="sc">|&gt;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Reduction in Total Waste per Person</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">5</span> <span class="sc">*</span> (</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>      (<span class="st">`</span><span class="at">Total waste generated, baseline year</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">Weighted campus users, baseline year</span><span class="st">`</span>) <span class="sc">-</span> </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>      (<span class="st">`</span><span class="at">Total waste generated, performance year</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">Weighted campus users, performance year</span><span class="st">`</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">/</span> </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    (<span class="st">`</span><span class="at">Total waste generated, baseline year</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">Weighted campus users, baseline year</span><span class="st">`</span>)</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Total waste per person</span><span class="st">`</span> <span class="ot">=</span> <span class="fl">2.78</span> <span class="sc">*</span> (</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0.46</span> <span class="sc">-</span> </span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>      (<span class="st">`</span><span class="at">Total waste generated, performance year</span><span class="st">`</span> <span class="sc">/</span> <span class="st">`</span><span class="at">Weighted campus users, performance year</span><span class="st">`</span>) <span class="sc">/</span> <span class="fl">0.46</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Waste diverted from the landfill or incinerator</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span> <span class="sc">*</span> (</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    (</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>      (</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Materials recycled, performance year</span><span class="st">`</span> <span class="sc">+</span> </span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Materials composted, performance year</span><span class="st">`</span> <span class="sc">+</span> </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Materials donated or re-sold, performance year</span><span class="st">`</span> <span class="sc">+</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        (<span class="fl">0.1</span> <span class="sc">*</span> (</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Materials recycled, performance year</span><span class="st">`</span> <span class="sc">+</span> </span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Materials composted, performance year</span><span class="st">`</span> <span class="sc">+</span> </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Materials donated or re-sold, performance year</span><span class="st">`</span> <span class="sc">+</span> </span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Materials disposed in a solid waste landfill or incinerator, performance year</span><span class="st">`</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        ))</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">/</span> </span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>      (</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Materials recycled, performance year</span><span class="st">`</span> <span class="sc">+</span> </span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Materials composted, performance year</span><span class="st">`</span> <span class="sc">+</span> </span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Materials donated or re-sold, performance year</span><span class="st">`</span> <span class="sc">+</span> </span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>        <span class="st">`</span><span class="at">Materials disposed in a solid waste landfill or incinerator, performance year</span><span class="st">`</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="summary-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="summary-statistics">Summary Statistics</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Summary</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>numeric_summary <span class="ot">&lt;-</span> peers <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="fu">list</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="sc">~</span> <span class="fu">median</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="sc">~</span> <span class="fu">sd</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">min =</span> <span class="sc">~</span> <span class="fu">min</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">max =</span> <span class="sc">~</span> <span class="fu">max</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  )))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(peers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>While looking at the mn peer institutions we saw that there weren’t many schools to compare to so we decided to gather schools from North Dakota, South Dakota, Iowa, and Wisconsin to have more schools to compare to. We made a new csv of those schools with their populations and we filtered it. From there we saw the big outliers so we filtered out any school with undergraduate populations over 11000. The last thing we did is filter out schools who didn’t report data and couldn’t have their scores calculated. Those are in the schools to exclude list. We decided to add the scores, we got the equations from the aaeshe stars website, and had to do a little work with the data to change the na variables to 0 so that each institution outputted a score.</strong></p>
+</section>
+<section id="data-visuilzations" class="level2">
+<h2 class="anchored" data-anchor-id="data-visuilzations">Data Visuilzations</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Waste Generation vs.&nbsp;Campus Population</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Waste%20Generation%20vs%20Campus%20pop.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>**The analysis examines the relationship between total waste generated and the full-time equivalent (FTE) student enrollment for a selection of institutions during the performance year. The dataset was filtered to include institutions of interest, such as the University of St.&nbsp;Thomas, Carleton College, Gustavus Adolphus College, Macalester College, and various universities from South Dakota and Wisconsin. Only data for “Total waste generated” and “Total full-time equivalent student enrollment” were considered, and rows with missing values were excluded. The two datasets were then merged using institution names as the key, resulting in a combined dataset containing waste generation and enrollment figures for each institution.</p>
+<p>A scatterplot was created to visualize the relationship between FTE enrollment and waste generation, with each point representing an institution. The x-axis displays FTE student enrollment, while the y-axis shows the total waste generated during the same period. Institutions are distinguished by color, making it easier to identify trends or outliers. The visualization reveals how student population size correlates with waste generation. While larger institutions are generally expected to produce more waste, deviations from this pattern could indicate differences in waste management efficiency. Institutions with higher waste levels relative to enrollment may have opportunities to improve sustainability practices, whereas those with lower waste levels may already be implementing effective measures.**</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a> <span class="co"># Converting df from wide format to long format</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>df_long <span class="ot">&lt;-</span> dataframe <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Institution, <span class="fu">where</span>(is.numeric)) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"Materials"</span>) <span class="sc">|</span> <span class="fu">starts_with</span>(<span class="st">"Total"</span>) <span class="sc">|</span> <span class="fu">starts_with</span>(<span class="st">"Number"</span>) <span class="sc">|</span> <span class="fu">starts_with</span>(<span class="st">"Full-Time"</span>) <span class="sc">|</span> <span class="fu">starts_with</span>(<span class="st">"Weighted"</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"Variable_Type"</span>, <span class="st">"Year"</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">", "</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Amount"</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Combining Tidy Numeric Data with Non Numeric Data</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>df_non_numeric <span class="ot">&lt;-</span> dataframe <span class="sc">|&gt;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">where</span>(<span class="sc">~</span> <span class="sc">!</span><span class="fu">is.numeric</span>(.)))</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>data_test <span class="ot">&lt;-</span> <span class="fu">left_join</span>(df_long, df_non_numeric, <span class="at">by =</span> <span class="st">"Institution"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter waste and enrollment data separately, then join them</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>waste_data <span class="ot">&lt;-</span> data_test <span class="sc">|&gt;</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Institution <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"University of St. Thomas"</span>, <span class="st">"Carleton College"</span>, <span class="st">"Concordia University"</span>, <span class="st">"   </span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="st">Gustavus Adolphus College"</span>, <span class="st">"Macalester College"</span>, <span class="st">"South Dakota State University"</span>, <span class="st">"University of South Dakota"</span>, <span class="st">"University of Wisconsin-Eau Claire"</span>, <span class="st">"University of Wisconsin-Oshkosh"</span>, <span class="st">" </span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="st">University of Wisconsin-Platteville"</span>, <span class="st">"University of Wisconsin-River Falls"</span>, <span class="st">"University of Wisconsin-Stevens Point"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Variable_Type <span class="sc">==</span> <span class="st">"Total waste generated"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="st">"performance year"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Amount)) <span class="sc">|&gt;</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Institution, Amount, Variable_Type, Year)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>enrollment_data <span class="ot">&lt;-</span> data_test <span class="sc">|&gt;</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Institution <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"University of St. Thomas"</span>, <span class="st">"Carleton College"</span>, <span class="st">"   </span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="st">Gustavus Adolphus College"</span>, <span class="st">"Macalester College"</span>, <span class="st">"South Dakota State University"</span>, <span class="st">"University of South Dakota"</span>, <span class="st">"University of Wisconsin-Eau Claire"</span>, <span class="st">"University of Wisconsin-Oshkosh"</span>, <span class="st">" </span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="st">University of Wisconsin-Platteville"</span>, <span class="st">"University of Wisconsin-River Falls"</span>, <span class="st">"University of Wisconsin-Stevens Point"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Variable_Type <span class="sc">==</span> <span class="st">"Total full-time equivalent student enrollment"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">==</span> <span class="st">"performance year"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Amount)) <span class="sc">|&gt;</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Institution, Amount, Variable_Type, Year)</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Join the two datasets on Institution</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(waste_data, enrollment_data, <span class="at">by =</span> <span class="st">"Institution"</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">"_waste"</span>, <span class="st">"_enrollment"</span>))</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the data with a legend</span></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(merged_data, <span class="fu">aes</span>(<span class="at">x =</span> Amount_enrollment, <span class="at">y =</span> Amount_waste)) <span class="sc">+</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Institution), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="co"># Mapping color to Institution for legend</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Waste Generation vs. Campus Population"</span>,</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Full-Time Equivalent Students (Performance Year)"</span>,</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total Waste Generated (Performance Year)"</span>,</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Institution"</span>,</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Comparison of Total Waste Generation and Campus Population Across Institutions: </span><span class="sc">\n</span><span class="st">Each point represents an institution, </span><span class="sc">\n</span><span class="st">with its total waste generated during the performance year </span><span class="sc">\n</span><span class="st">plotted against the full-time equivalent student population for the same period."</span>) <span class="sc">+</span>  <span class="co"># Legend title</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Total Waste Generated by Institution</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Total%20waste%20generated%20by%20insitution.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>**The analysis focuses on visualizing the total waste generated by various institutions during the performance year using a bar chart. The dataset includes key institutions such as the University of St.&nbsp;Thomas, Carleton College, Gustavus Adolphus College, Macalester College, and several universities from South Dakota and Wisconsin. The bar chart represents the total waste generated by each institution, with the University of St.&nbsp;Thomas specifically highlighted in purple for emphasis. This visual distinction draws attention to the University of St.&nbsp;Thomas while allowing for easy comparison with other institutions.</p>
+<p>Each bar corresponds to the waste generated by an institution, with the y-axis representing the total waste amount and the x-axis displaying the institution names. The chart effectively highlights differences in waste production across campuses, making it clear which institutions generate more or less waste relative to others. By angling the institution names on the x-axis, the chart improves readability, particularly when comparing multiple institutions.**</p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bar Plot: Total Waste Generated by Institution</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(merged_data, <span class="fu">aes</span>(<span class="at">x =</span> Institution, <span class="at">y =</span> Amount_waste, <span class="at">fill =</span> Institution)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"University of St. Thomas"</span> <span class="ot">=</span> <span class="st">"purple"</span>))<span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Total Waste Generated by Institution"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Institution"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total Waste Generated (Performance Year)"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Total Waste Generated by Institution: </span><span class="sc">\n</span><span class="st">This bar chart shows the total waste generated by each institution during the performance year, </span><span class="sc">\n</span><span class="st">highlighting variations in waste production across campuses. </span><span class="sc">\n</span><span class="st">The University of St. Thomas is emphasized in purple for specific focus."</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true" href="">Material Disposal Methods by Institution</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Material%20Disposal%20Methods%20by%20Institution.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>The University of St.&nbsp;Thomas recycles significantly more materials than the overall average of other schools. However, UST composts less compared to the overall average and donates/resells fewer materials relative to the average. Notably, UST disposes of less material in landfills or incinerators compared to the overall average, indicating stronger waste diversion efforts.</strong></p>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter relevant columns for visualization</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>filtered_data_viz3 <span class="ot">&lt;-</span> peers <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    Institution,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Materials recycled, performance year</span><span class="st">`</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Materials composted, performance year</span><span class="st">`</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Materials donated or re-sold, performance year</span><span class="st">`</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Materials disposed in a solid waste landfill or incinerator, performance year</span><span class="st">`</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename columns for simplicity</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(filtered_data_viz3) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Institution'</span>, </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Recycled'</span>, </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Composted'</span>, </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Donated or Resold'</span>, </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Disposed'</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># pivot the dataframe to long format for visualization</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>pivot_data <span class="ot">&lt;-</span> filtered_data_viz3 <span class="sc">|&gt;</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">'Recycled'</span>, <span class="st">'Composted'</span>, <span class="st">'Donated or Resold'</span>, <span class="st">'Disposed'</span>),</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">'Material_Type'</span>,</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">'Amount'</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pivot_data, <span class="fu">aes</span>(<span class="at">x =</span> Institution, <span class="at">y =</span> Amount, <span class="at">fill =</span> Material_Type)) <span class="sc">+</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">'identity'</span>) <span class="sc">+</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Recycled'</span> <span class="ot">=</span> <span class="st">'blue'</span>,</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Composted'</span> <span class="ot">=</span> <span class="st">'darkgreen'</span>,</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Donated or Resold'</span> <span class="ot">=</span> <span class="st">'orange'</span>,</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>      <span class="st">'Disposed'</span> <span class="ot">=</span> <span class="st">'red'</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">'Institution'</span>,</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">'Total Amount of Material (tons)'</span>,</span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">'Material Disposal Methods by Institution'</span>,</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">'Material Type'</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true" href="">Comparison of Schools by Total Waste Reduction Percentage</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false" href="">Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Comparison%20of%20Schools%20by%20Total%20Waste%20Reduction%20Percentage.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Compared to other institutions, the University of St.&nbsp;Thomas’ total reduction in waste is relatively higher and its population size appears to be similarly relative to the majority of other schools. This suggests that St.&nbsp;Thomas’s waste reduction efforts are more effective based on the data when considering its population size.</strong></p>
+</div>
+<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>filtered_data_viz4 <span class="ot">&lt;-</span> peers<span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Institution, Undergraduate.Population, <span class="st">'Percentage reduction in total waste generated per weighted campus user from baseline'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">School =</span> Institution,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Population =</span> Undergraduate.Population,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Total_Waste_Reduction =</span> <span class="st">'Percentage reduction in total waste generated per weighted campus user from baseline'</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(School) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(Population) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(Total_Waste_Reduction))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a column to distinguish University of St. Thomas from other schools</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>filtered_data_viz4 <span class="ot">&lt;-</span> filtered_data_viz4 <span class="sc">|&gt;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Color =</span> <span class="fu">ifelse</span>(<span class="fu">grepl</span>(<span class="st">'University of St. Thomas'</span>, School), <span class="st">'purple'</span>, <span class="st">'grey'</span>))</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the scatter plot</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(filtered_data_viz4, <span class="fu">aes</span>(<span class="at">x =</span> School, <span class="at">y =</span> Total_Waste_Reduction, <span class="at">size =</span> Population, <span class="at">color =</span> Color)) <span class="sc">+</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> filtered_data_viz4<span class="sc">$</span>Color) <span class="sc">+</span>  <span class="co"># Change shape to circle (shape = 21) or square (shape = 22)</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">'purple'</span> <span class="ot">=</span> <span class="st">'purple'</span>, <span class="st">'grey'</span> <span class="ot">=</span> <span class="st">'grey'</span>)) <span class="sc">+</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">10</span>)) <span class="sc">+</span>  <span class="co"># Adjust the size of the points</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">'School'</span>,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">'Total Reduction in Waste'</span>,</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">'Comparison of Schools by Total Waste Reduction Percentage'</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">"none"</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
