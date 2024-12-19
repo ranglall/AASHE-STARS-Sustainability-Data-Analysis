@@ -1,20 +1,20 @@
 ---
-title: "PHASE 2"
-author: "Nimo Hassan, Alexander Wodarski, Breanna Ranglall, Tenzin Dhondup"
+title: "Phase 3 Viz Breanna"
+author: "Breanna Ranglall"
 format: pdf
 editor: visual
 ---
 
 ```{r}
-#| warning: false
-library(tidyverse)
-library(readxl)
+#| warning: false 
+library(tidyverse) 
+library(readxl) 
 library(dplyr)
 ```
 
 ```{r}
-# Read data from excel spreadsheet
-dataf <- read_excel("OP-18_Waste_Minimization_and_Diversion_2024.xlsx")
+# Read data from excel spreadsheet 
+dataf <- read_excel("OP-18_Waste_Minimization_and_Diversion_2024.xlsx") 
 pop_data <- read.csv("updated_school_population.csv")
 ```
 
@@ -71,24 +71,21 @@ dataframe$`Materials recycled, performance year`[is.na(dataframe$`Materials recy
 dataframe$`Materials composted, performance year`[is.na(dataframe$`Materials composted, performance year`)] <- 0
 dataframe$`Materials donated or re-sold, performance year`[is.na(dataframe$`Materials donated or re-sold, performance year`)] <- 0
 dataframe$`Materials disposed in a solid waste landfill or incinerator, performance year`[is.na(dataframe$`Materials disposed in a solid waste landfill or incinerator, performance year`)] <- 0
-
-
 ```
 
 ```{r}
-pop_data$Institution[pop_data$Institution == "University of Minnesota Twin Cities"] <- "University of Minnesota, Twin Cities"
-pop_data$Institution[pop_data$Institution == "University of Minnesota Crookston"] <- "University of Minnesota, Crookston"
+pop_data$Institution[pop_data$Institution == "University of Minnesota Twin Cities"] <- "University of Minnesota, Twin Cities" 
+pop_data$Institution[pop_data$Institution == "University of Minnesota Crookston"] <- "University of Minnesota, Crookston" 
 pop_data$Institution[pop_data$Institution == "University of Minnesota Morris"] <- "University of Minnesota, Morris"
 ```
 
 ```{r}
-# Converting 'chr' to 'date'
-
-dataframe$'Last Updated' <- as.Date(dataframe$'Last Updated')
-dataframe$'Start date, performance year or 3-year period' <- as.Date(dataframe$'Start date, performance year or 3-year period', origin = "1899-12-30")
-dataframe$'End date, performance year or 3-year period' <- as.Date(dataframe$'End date, performance year or 3-year period', origin = "1899-12-30")
-dataframe$'Start date, baseline year or 3-year period' <- as.Date(dataframe$'Start date, baseline year or 3-year period', origin = "1899-12-30")
-dataframe$'End date, baseline year or 3-year period' <- as.Date(dataframe$'End date, baseline year or 3-year period', origin = "1899-12-30")
+# Converting 'chr' to 'date'  
+dataframe$'Last Updated' <- as.Date(dataframe$'Last Updated') 
+dataframe$'Start date, performance year or 3-year period' <- as.Date(dataframe$'Start date, performance year or 3-year period', origin = "1899-12-30") 
+dataframe$'End date, performance year or 3-year period' <- as.Date(dataframe$'End date, performance year or 3-year period', origin = "1899-12-30") 
+dataframe$'Start date, baseline year or 3-year period' <- as.Date(dataframe$'Start date, baseline year or 3-year period', origin = "1899-12-30") 
+dataframe$'End date, baseline year or 3-year period' <- as.Date(dataframe$'End date, baseline year or 3-year period', origin = "1899-12-30") 
 pop_data$Undergraduate.Population <- as.numeric(pop_data$Undergraduate.Population)
 ```
 
@@ -146,64 +143,95 @@ peers <-  dataframe|>
     )
   )
 )
-
-           
-# Summary statistics for all numeric variables
-numeric_summary <- peers |>
-  summarize(across(where(is.numeric), list(
-    mean = ~ mean(.x, na.rm = TRUE),
-    median = ~ median(.x, na.rm = TRUE),
-    sd = ~ sd(.x, na.rm = TRUE),
-    min = ~ min(.x, na.rm = TRUE),
-    max = ~ max(.x, na.rm = TRUE)
-  )))
-View(peers)
-
 ```
 
-While looking at the mn peer institutions we saw that there weren't many schools to compare to so we decided to gather schools from North Dakota, South Dakota, Iowa, and Wisconsin to have more schools to compare to. We made a new csv of those schools with their populations and we filtered it. From there we saw the big outliers so we filtered out any school with undergraduate populations over 11000. The last thing we did is filter out schools who didn't report data and couldn't have their scores calculated. Those are in the schools to exclude list. We decided to add the scores, we got the equations from the aaeshe stars website, and had to do a little work with the data to change the na variables to 0 so that each institution outputted a score.
+### Viz 1
 
 ```{r}
-library(dplyr)
-
-
-summarydata <- data.frame(
-  
-  Material = rep(c(
-    "Materials recycled",
-    "Materials composted",
-    "Materials donated or re-sold",
-    "Materials disposed through post-recycling residual conversion",
-    "Materials disposed in a solid waste landfill or incinerator"
-  ), each = 10),
-  Year_Type = rep(c(
-    "Performance Year", "Baseline Year"
-  ), times = 5, each = 5),
-  Metric = rep(c("Mean", "Median", "SD", "Min", "Max"), times = 10),
-  Value = c(
-    451.446, 229.74, 538.0773, 105, 1390.34,
-    675.482, 525, 869.5525, 57, 2176.4,
-    308.51, 67.4, 488.207, 53.05, 1176.1,
-    215.175, 215.175, 208.7733, 67.55, 362.8,
-    68.52, 6.6, 136.8534, 0, 312.84,
-    107.52, 107.52, 63.32848, 62.74, 152.3,
-    NA, NA, NA, Inf, -Inf,
-    NA, NA, NA, Inf, -Inf,
-    934.404, 358.09, 1558.256, 104, 3712.9,
-    934.404, 358.09, 1558.256, 104, 3712.9
+# Filter relevant columns for visualization
+filtered_data_viz3 <- peers |>
+  select(
+    Institution,
+    `Materials recycled, performance year`,
+    `Materials composted, performance year`,
+    `Materials donated or re-sold, performance year`,
+    `Materials disposed in a solid waste landfill or incinerator, performance year`
   )
-  
+
+# Rename columns for simplicity
+colnames(filtered_data_viz3) <- c(
+  'Institution', 
+  'Recycled', 
+  'Composted', 
+  'Donated or Resold', 
+  'Disposed'
 )
 
+# pivot the dataframe to long format for visualization
+pivot_data <- filtered_data_viz3 |>
+  pivot_longer(
+    cols = c('Recycled', 'Composted', 'Donated or Resold', 'Disposed'),
+    names_to = 'Material_Type',
+    values_to = 'Amount'
+  )
 
-organizedSummary <- summarydata|>
-  pivot_wider(
-    names_from = Metric,
-    values_from = Value
-  ) |>
-  arrange(Material, Year_Type)
+ggplot(pivot_data, aes(x = Institution, y = Amount, fill = Material_Type)) +
+  geom_bar(stat = 'identity') +
+  scale_fill_manual(
+    values = c(
+      'Recycled' = 'blue',
+      'Composted' = 'darkgreen',
+      'Donated or Resold' = 'orange',
+      'Disposed' = 'red'
+    )
+  ) +
+  labs(
+    x = 'Institution',
+    y = 'Total Amount of Material (tons)',
+    title = 'Material Disposal Methods by Institution',
+    fill = 'Material Type'
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-
-view(organizedSummary)
 
 ```
+
+The University of St. Thomas recycles significantly more materials than the overall average of other schools. However, UST composts less compared to the overall average and donates/resells fewer materials relative to the average. Notably, UST disposes of less material in landfills or incinerators compared to the overall average, indicating stronger waste diversion efforts.
+
+### Viz 2
+
+```{r}
+filtered_data_viz4 <- peers|>
+  select(Institution, Undergraduate.Population, 'Percentage reduction in total waste generated per weighted campus user from baseline') |>
+  rename(
+    School = Institution,
+    Population = Undergraduate.Population,
+    Total_Waste_Reduction = 'Percentage reduction in total waste generated per weighted campus user from baseline'
+  ) |>
+  filter(!is.na(School) & !is.na(Population) & !is.na(Total_Waste_Reduction))
+
+# Create a column to distinguish University of St. Thomas from other schools
+filtered_data_viz4 <- filtered_data_viz4 |>
+  mutate(Color = ifelse(grepl('University of St. Thomas', School), 'purple', 'grey'))
+
+# Create the scatter plot
+ggplot(filtered_data_viz4, aes(x = School, y = Total_Waste_Reduction, size = Population, color = Color)) +
+  geom_point(shape = 21, fill = filtered_data_viz4$Color) +  # Change shape to circle (shape = 21) or square (shape = 22)
+  scale_color_manual(values = c('purple' = 'purple', 'grey' = 'grey')) +
+  scale_size(range = c(3, 10)) +  # Adjust the size of the points
+  labs(
+    x = 'School',
+    y = 'Total Reduction in Waste',
+    title = 'Comparison of Schools by Total Waste Reduction Percentage'
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 90, hjust = 1),
+    legend.position="none"
+  )
+
+
+```
+
+Compared to other institutions, the University of St. Thomas' total reduction in waste is relatively higher and its population size appears to be similarly relative to the majority of other schools. This suggests that St. Thomas's waste reduction efforts are more effective based on the data when considering its population size.
