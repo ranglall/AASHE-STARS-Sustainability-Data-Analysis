@@ -1,0 +1,363 @@
+---
+title: "PHASE 2"
+author: "Nimo Hassan, Alexander Wodarski, Breanna Ranglall, Tenzin Dhondup"
+format: pdf
+editor: visual
+---
+
+```{r}
+#| warning: false
+library(tidyverse)
+library(readxl)
+library(dplyr)
+```
+
+```{r}
+# Read data from excel spreadsheet
+dataf <- read_excel("OP-18_Waste_Minimization_and_Diversion_2024.xlsx")
+pop_data <- read.csv("updated_school_population.csv")
+```
+
+```{r}
+#| warning: false
+dataframe <- dataf
+
+# Converting 'chr' to 'numeric'
+
+dataframe$'Materials recycled, performance year' <- as.numeric(dataframe$'Materials recycled, performance year')
+dataframe$'Materials recycled, baseline year' <- as.numeric(dataframe$'Materials recycled, baseline year')
+dataframe$'Materials composted, performance year' <- as.numeric(dataframe$'Materials composted, performance year')
+dataframe$'Materials composted, baseline year' <- as.numeric(dataframe$'Materials composted, baseline year')
+dataframe$'Materials donated or re-sold, performance year' <- as.numeric(dataframe$'Materials donated or re-sold, performance year')
+dataframe$'Materials donated or re-sold, baseline year' <- as.numeric(dataframe$'Materials donated or re-sold, baseline year')
+dataframe$'Materials disposed through post-recycling residual conversion, performance year' <- as.numeric(dataframe$'Materials disposed through post-recycling residual conversion, performance year')
+dataframe$'Materials disposed through post-recycling residual conversion, baseline year' <- as.numeric(dataframe$'Materials disposed through post-recycling residual conversion, baseline year')
+dataframe$'Materials disposed in a solid waste landfill or incinerator, performance year' <- as.numeric(dataframe$'Materials disposed in a solid waste landfill or incinerator, performance year')
+dataframe$'Materials disposed in a solid waste landfill or incinerator, baseline year' <- as.numeric(dataframe$'Materials disposed in a solid waste landfill or incinerator, baseline year')
+dataframe$'Total waste generated, performance year' <- as.numeric(dataframe$'Total waste generated, performance year')
+dataframe$'Total waste generated, baseline year' <- as.numeric(dataframe$'Total waste generated, baseline year')
+dataframe$'Start date, performance year or 3-year period' <- as.numeric(dataframe$'Start date, performance year or 3-year period')
+dataframe$'End date, performance year or 3-year period' <- as.numeric(dataframe$'End date, performance year or 3-year period')
+dataframe$'Start date, baseline year or 3-year period' <- as.numeric(dataframe$'Start date, baseline year or 3-year period')
+dataframe$'End date, baseline year or 3-year period' <- as.numeric(dataframe$'End date, baseline year or 3-year period')
+dataframe$'Number of students resident on-site, performance year' <- as.numeric(dataframe$'Number of students resident on-site, performance year')
+dataframe$'Number of students resident on-site, baseline year' <- as.numeric(dataframe$'Number of students resident on-site, baseline year')
+dataframe$'Number of employees resident on-site, performance year' <- as.numeric(dataframe$'Number of employees resident on-site, performance year')
+dataframe$'Number of employees resident on-site, baseline year' <- as.numeric(dataframe$'Number of employees resident on-site, baseline year')
+dataframe$'Number of other individuals resident on-site, performance year' <- as.numeric(dataframe$'Number of other individuals resident on-site, performance year')
+dataframe$'Number of other individuals resident on-site, baseline year' <- as.numeric(dataframe$'Number of other individuals resident on-site, baseline year')
+dataframe$'Total full-time equivalent student enrollment, performance year' <- as.numeric(dataframe$'Total full-time equivalent student enrollment, performance year')
+dataframe$'Total full-time equivalent student enrollment, baseline year' <- as.numeric(dataframe$'Total full-time equivalent student enrollment, baseline year')
+dataframe$'Full-time equivalent of employees, performance year' <- as.numeric(dataframe$'Full-time equivalent of employees, performance year')
+dataframe$'Full-time equivalent of employees, baseline year' <- as.numeric(dataframe$'Full-time equivalent of employees, baseline year')
+dataframe$'Full-time equivalent of students enrolled in exclusively in distance education, performance year' <- as.numeric(dataframe$'Full-time equivalent of students enrolled in exclusively in distance education, performance year')
+dataframe$'Full-time equivalent of students enrolled exclusively in distance education, baseline year' <- as.numeric(dataframe$'Full-time equivalent of students enrolled exclusively in distance education, baseline year')
+dataframe$'Weighted campus users, performance year' <- as.numeric(dataframe$'Weighted campus users, performance year')
+dataframe$'Weighted campus users, baseline year' <- as.numeric(dataframe$'Weighted campus users, baseline year')
+dataframe$'Total waste generated per weighted campus user, performance year' <- as.numeric(dataframe$'Total waste generated per weighted campus user, performance year')
+dataframe$'Total waste generated per weighted campus user, baseline year' <- as.numeric(dataframe$'Total waste generated per weighted campus user, baseline year')
+dataframe$'Weighted campus users, performance year' <- as.numeric(dataframe$'Weighted campus users, performance year')
+dataframe$'Weighted campus users, baseline year' <- as.numeric(dataframe$'Weighted campus users, baseline year')
+dataframe$'Percentage reduction in total waste generated per weighted campus user from baseline' <- as.numeric(dataframe$'Percentage reduction in total waste generated per weighted campus user from baseline')
+dataframe$'Percentage of materials diverted from the landfill or incinerator by recycling, composting, ...' <- as.numeric(dataframe$'Percentage of materials diverted from the landfill or incinerator by recycling, composting, ...')
+dataframe$'Percentage of materials diverted from the landfill or incinerator (including up to 10 percent ...' <- as.numeric(dataframe$'Percentage of materials diverted from the landfill or incinerator (including up to 10 percent ...')
+# Replace the single NA with 0
+# Replace NA values with 0 for the specified columns
+dataframe$`Total waste generated, baseline year`[is.na(dataframe$`Total waste generated, baseline year`)] <- 0
+dataframe$`Weighted campus users, baseline year`[is.na(dataframe$`Weighted campus users, baseline year`)] <- 0
+dataframe$`Total waste generated, performance year`[is.na(dataframe$`Total waste generated, performance year`)] <- 0
+dataframe$`Weighted campus users, performance year`[is.na(dataframe$`Weighted campus users, performance year`)] <- 0
+dataframe$`Materials recycled, performance year`[is.na(dataframe$`Materials recycled, performance year`)] <- 0
+dataframe$`Materials composted, performance year`[is.na(dataframe$`Materials composted, performance year`)] <- 0
+dataframe$`Materials donated or re-sold, performance year`[is.na(dataframe$`Materials donated or re-sold, performance year`)] <- 0
+dataframe$`Materials disposed in a solid waste landfill or incinerator, performance year`[is.na(dataframe$`Materials disposed in a solid waste landfill or incinerator, performance year`)] <- 0
+
+
+```
+
+```{r}
+pop_data$Institution[pop_data$Institution == "University of Minnesota Twin Cities"] <- "University of Minnesota, Twin Cities"
+pop_data$Institution[pop_data$Institution == "University of Minnesota Crookston"] <- "University of Minnesota, Crookston"
+pop_data$Institution[pop_data$Institution == "University of Minnesota Morris"] <- "University of Minnesota, Morris"
+```
+
+```{r}
+# Converting 'chr' to 'date'
+
+dataframe$'Last Updated' <- as.Date(dataframe$'Last Updated')
+dataframe$'Start date, performance year or 3-year period' <- as.Date(dataframe$'Start date, performance year or 3-year period', origin = "1899-12-30")
+dataframe$'End date, performance year or 3-year period' <- as.Date(dataframe$'End date, performance year or 3-year period', origin = "1899-12-30")
+dataframe$'Start date, baseline year or 3-year period' <- as.Date(dataframe$'Start date, baseline year or 3-year period', origin = "1899-12-30")
+dataframe$'End date, baseline year or 3-year period' <- as.Date(dataframe$'End date, baseline year or 3-year period', origin = "1899-12-30")
+pop_data$Undergraduate.Population <- as.numeric(pop_data$Undergraduate.Population)
+```
+
+```{r}
+peer_schools <- c("Iowa State University", "University of Minnesota, Twin Cities", "University of St. Thomas", 
+                  "Macalester College", "Gustavus Adolphus College", "University of Wisconsin-Madison", 
+                  "Marquette University", "University of Wisconsin-Eau Claire", 
+                  "University of Wisconsin-Green Bay", "University of Wisconsin-Oshkosh", 
+                  "University of Wisconsin-Platteville", "University of Wisconsin-Stevens Point", 
+                  "University of Wisconsin-River Falls", "University of Minnesota, Morris", 
+                  "University of Minnesota, Crookston","Concordia University",
+                  "Carleton College", "South Dakota State University", 
+                  "University of South Dakota")
+schools_to_exclude <- c("Marquette University", "University of Wisconsin-Green Bay", "University of Minnesota, Crookston")
+peers <-  dataframe|>
+  filter(Institution %in% peer_schools)|>
+  left_join(pop_data,by = "Institution")|>
+  filter(Undergraduate.Population<11000)|>
+  filter(!Institution %in% schools_to_exclude)|>
+  mutate(
+  `Reduction in Total Waste per Person` = 5 * (
+    (
+      (`Total waste generated, baseline year` / `Weighted campus users, baseline year`) - 
+      (`Total waste generated, performance year` / `Weighted campus users, performance year`)
+    ) / 
+    (`Total waste generated, baseline year` / `Weighted campus users, baseline year`)
+  ),
+  
+  `Total waste per person` = 2.78 * (
+    (
+      0.46 - 
+      (`Total waste generated, performance year` / `Weighted campus users, performance year`) / 0.46
+    )
+  ),
+  
+  `Waste diverted from the landfill or incinerator` = 3 * (
+    (
+      (
+        `Materials recycled, performance year` + 
+        `Materials composted, performance year` + 
+        `Materials donated or re-sold, performance year` +
+        (0.1 * (
+          `Materials recycled, performance year` + 
+          `Materials composted, performance year` + 
+          `Materials donated or re-sold, performance year` + 
+          `Materials disposed in a solid waste landfill or incinerator, performance year`
+        ))
+      ) / 
+      (
+        `Materials recycled, performance year` + 
+        `Materials composted, performance year` + 
+        `Materials donated or re-sold, performance year` + 
+        `Materials disposed in a solid waste landfill or incinerator, performance year`
+      )
+    )
+  )
+)
+
+           
+# Summary statistics for all numeric variables
+numeric_summary <- peers |>
+  summarize(across(where(is.numeric), list(
+    mean = ~ mean(.x, na.rm = TRUE),
+    median = ~ median(.x, na.rm = TRUE),
+    sd = ~ sd(.x, na.rm = TRUE),
+    min = ~ min(.x, na.rm = TRUE),
+    max = ~ max(.x, na.rm = TRUE)
+  )))
+View(peers)
+
+```
+
+While looking at the mn peer institutions we saw that there weren't many schools to compare to so we decided to gather schools from North Dakota, South Dakota, Iowa, and Wisconsin to have more schools to compare to. We made a new csv of those schools with their populations and we filtered it. From there we saw the big outliers so we filtered out any school with undergraduate populations over 11000. The last thing we did is filter out schools who didn't report data and couldn't have their scores calculated. Those are in the schools to exclude list. We decided to add the scores, we got the equations from the aaeshe stars website, and had to do a little work with the data to change the na variables to 0 so that each institution outputted a score.
+
+```{r}
+library(dplyr)
+
+
+summarydata <- data.frame(
+  
+  Material = rep(c(
+    "Materials recycled",
+    "Materials composted",
+    "Materials donated or re-sold",
+    "Materials disposed through post-recycling residual conversion",
+    "Materials disposed in a solid waste landfill or incinerator"
+  ), each = 10),
+  Year_Type = rep(c(
+    "Performance Year", "Baseline Year"
+  ), times = 5, each = 5),
+  Metric = rep(c("Mean", "Median", "SD", "Min", "Max"), times = 10),
+  Value = c(
+    451.446, 229.74, 538.0773, 105, 1390.34,
+    675.482, 525, 869.5525, 57, 2176.4,
+    308.51, 67.4, 488.207, 53.05, 1176.1,
+    215.175, 215.175, 208.7733, 67.55, 362.8,
+    68.52, 6.6, 136.8534, 0, 312.84,
+    107.52, 107.52, 63.32848, 62.74, 152.3,
+    NA, NA, NA, Inf, -Inf,
+    NA, NA, NA, Inf, -Inf,
+    934.404, 358.09, 1558.256, 104, 3712.9,
+    934.404, 358.09, 1558.256, 104, 3712.9
+  )
+  
+)
+
+
+organizedSummary <- summarydata|>
+  pivot_wider(
+    names_from = Metric,
+    values_from = Value
+  ) |>
+  arrange(Material, Year_Type)
+
+
+view(organizedSummary)
+
+```
+
+### Pull in Clean Data
+
+```{r}
+# Read in the CSV file
+df_pop <- read.csv("peerspop.csv")
+
+# Clean and prepare the data
+clean_df_pop <- df_pop |>
+  select(
+    Institution, 
+    Materials.recycled..performance.year, 
+    Materials.composted..performance.year, 
+    Undergraduate.Population
+  ) |>
+  mutate(
+    Materials.recycled = as.numeric(Materials.recycled..performance.year),
+    Materials.composted = as.numeric(Materials.composted..performance.year),
+    Undergraduate.Population = as.numeric(Undergraduate.Population)
+  ) |>
+  filter(!is.na(Materials.recycled), !is.na(Materials.composted), !is.na(Undergraduate.Population))
+
+```
+
+### Viz 1
+
+```{r}
+# Plot 1: Scatter Plot of Materials Composted vs. Materials Recycled
+ggplot(clean_df_pop, aes(x = Materials.recycled, y = Materials.composted, size = Undergraduate.Population, color = Institution)) +
+  geom_point(shape = 15) + # Shape changed to square
+  labs(
+    title = "Materials Composted vs. Materials Recycled by Institution (Bubble Size = Population)",
+    x = "Materials Recycled (Tons)",
+    y = "Materials Composted (Tons)",
+    caption = 'This line plot compares the recycled and composted materials for each institution. \nThe University of St. Thomas can be observed relative to other universities with similar \npopulation, allowing for insights into its recycling and composting efforts.'
+
+  ) +
+  scale_size_continuous(range = c(3, 15)) +
+  theme_minimal()
+
+```
+
+### Viz 2
+
+```{r}
+# Plot 2: Line Plot of Recycled and Composted Materials for Institutions
+
+# Arrange data to ensure institutions are in order
+clean_df_pop_sorted <- clean_df_pop |>
+  arrange(Institution)
+
+# Create the line plot
+ggplot(clean_df_pop_sorted, aes(x = Institution)) +
+  geom_line(aes(y = `Materials.recycled`, color = 'Recycled Materials'), group = 1) +
+  geom_point(aes(y = `Materials.recycled`, color = 'Recycled Materials')) +
+  geom_line(aes(y = `Materials.composted`, color = 'Composted Materials'), group = 1) +
+  geom_point(aes(y = `Materials.composted`, color = 'Composted Materials')) +
+  scale_color_manual(values = c('Recycled Materials' = 'blue', 'Composted Materials' = 'green')) +
+  labs(
+    title = 'Recycled and Composted Materials by Institution (Performance Year)',
+    x = 'Institution',
+    y = 'Amount (Tons)',
+    color = 'Material Type',
+    caption = 'This line plot compares the recycled and composted materials for each institution. \nThe University of St. Thomas can be observed relative to other universities, \nallowing for insights into its recycling and composting efforts.'
+
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+### Viz 3
+
+```{r}
+# Converting df from wide format to long format
+
+df_long <- dataframe |>
+  select(Institution, where(is.numeric)) |>
+  pivot_longer(
+    cols = starts_with("Materials") | starts_with("Total") | starts_with("Number") | starts_with("Full-Time") | starts_with("Weighted"),
+    names_to = c("Variable_Type", "Year"),
+    names_sep = ", ",
+    values_to = "Amount"
+  )
+```
+
+```{r}
+#Combining Tidy Numeric Data with Non Numeric Data
+
+df_non_numeric <- dataframe |>
+  select(where(~ !is.numeric(.)))
+
+data_test <- left_join(df_long, df_non_numeric, by = "Institution")
+```
+
+The analysis examines the relationship between total waste generated and the full-time equivalent (FTE) student enrollment for a selection of institutions during the performance year. The dataset was filtered to include institutions of interest, such as the University of St. Thomas, Carleton College, Gustavus Adolphus College, Macalester College, and various universities from South Dakota and Wisconsin. Only data for "Total waste generated" and "Total full-time equivalent student enrollment" were considered, and rows with missing values were excluded. The two datasets were then merged using institution names as the key, resulting in a combined dataset containing waste generation and enrollment figures for each institution.
+
+A scatterplot was created to visualize the relationship between FTE enrollment and waste generation, with each point representing an institution. The x-axis displays FTE student enrollment, while the y-axis shows the total waste generated during the same period. Institutions are distinguished by color, making it easier to identify trends or outliers. The visualization reveals how student population size correlates with waste generation. While larger institutions are generally expected to produce more waste, deviations from this pattern could indicate differences in waste management efficiency. Institutions with higher waste levels relative to enrollment may have opportunities to improve sustainability practices, whereas those with lower waste levels may already be implementing effective measures.
+
+This analysis highlights the importance of benchmarking waste generation relative to campus population to assess sustainability performance. It also provides a foundation for evaluating waste reduction initiatives. However, the findings are limited by the lack of consideration for contextual factors, such as operational differences or campus size, which could independently influence waste levels. Additionally, since the data is restricted to a single performance year, it does not capture potential long-term trends. Overall, this analysis underscores the importance of integrating population size into sustainability assessments and offers actionable insights for institutions looking to reduce waste while maintaining educational quality.
+
+```{r}
+# Filter waste and enrollment data separately, then join them
+waste_data <- data_test |>
+  filter(Institution %in% c("University of St. Thomas", "Carleton College", "Concordia University", "	
+Gustavus Adolphus College", "Macalester College", "South Dakota State University", "University of South Dakota", "University of Wisconsin-Eau Claire", "University of Wisconsin-Oshkosh", "	
+University of Wisconsin-Platteville", "University of Wisconsin-River Falls", "University of Wisconsin-Stevens Point")) |>
+  filter(Variable_Type == "Total waste generated") |>
+  filter(Year == "performance year") |>
+  filter(!is.na(Amount)) |>
+  select(Institution, Amount, Variable_Type, Year)
+
+enrollment_data <- data_test |>
+  filter(Institution %in% c("University of St. Thomas", "Carleton College", "	
+Gustavus Adolphus College", "Macalester College", "South Dakota State University", "University of South Dakota", "University of Wisconsin-Eau Claire", "University of Wisconsin-Oshkosh", "	
+University of Wisconsin-Platteville", "University of Wisconsin-River Falls", "University of Wisconsin-Stevens Point")) |>
+  filter(Variable_Type == "Total full-time equivalent student enrollment") |>
+  filter(Year == "performance year") |>
+  filter(!is.na(Amount)) |>
+  select(Institution, Amount, Variable_Type, Year)
+
+# Join the two datasets on Institution
+merged_data <- left_join(waste_data, enrollment_data, by = "Institution", suffix = c("_waste", "_enrollment"))
+
+# Plot the data with a legend
+ggplot(merged_data, aes(x = Amount_enrollment, y = Amount_waste)) +
+  geom_point(aes(color = Institution), size = 3) +  # Mapping color to Institution for legend
+  labs(title = "Waste Generation vs. Campus Population",
+       x = "Full-Time Equivalent Students (Performance Year)",
+       y = "Total Waste Generated (Performance Year)",
+       color = "Institution",
+       caption = "Comparison of Total Waste Generation and Campus Population Across Institutions: \nEach point represents an institution, \nwith its total waste generated during the performance year \nplotted against the full-time equivalent student population for the same period.") +  # Legend title
+  theme_minimal()
+```
+
+### Viz 4
+
+The analysis focuses on visualizing the total waste generated by various institutions during the performance year using a bar chart. The dataset includes key institutions such as the University of St. Thomas, Carleton College, Gustavus Adolphus College, Macalester College, and several universities from South Dakota and Wisconsin. The bar chart represents the total waste generated by each institution, with the University of St. Thomas specifically highlighted in purple for emphasis. This visual distinction draws attention to the University of St. Thomas while allowing for easy comparison with other institutions.
+
+Each bar corresponds to the waste generated by an institution, with the y-axis representing the total waste amount and the x-axis displaying the institution names. The chart effectively highlights differences in waste production across campuses, making it clear which institutions generate more or less waste relative to others. By angling the institution names on the x-axis, the chart improves readability, particularly when comparing multiple institutions.
+
+```{r}
+# Bar Plot: Total Waste Generated by Institution
+ggplot(merged_data, aes(x = Institution, y = Amount_waste, fill = Institution)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  scale_fill_manual(values = c("University of St. Thomas" = "purple"))+
+  labs(title = "Total Waste Generated by Institution",
+       x = "Institution",
+       y = "Total Waste Generated (Performance Year)",
+       caption = "Total Waste Generated by Institution: \nThis bar chart shows the total waste generated by each institution during the performance year, \nhighlighting variations in waste production across campuses. \nThe University of St. Thomas is emphasized in purple for specific focus.") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
