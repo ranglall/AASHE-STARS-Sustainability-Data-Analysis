@@ -1,4 +1,4 @@
-# University Sustainability Data Analysis
+# AASHE STARS Sustainability Data Analysis
 
 ## ℹ️ Overview
 This project was developed as a comprehensive alternative to the final exam for the Data Science program at the University of St. Thomas. The objective was to use real-world data from the AASHE STARS program to evaluate and compare the University of St. Thomas's sustainability performance against other institutions. 
