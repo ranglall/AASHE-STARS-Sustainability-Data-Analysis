@@ -16,10 +16,8 @@ The project culminated in a professional presentation of findings and actionable
 ---
 
 ## 🤖Technologies Used
-* **Data Analysis:** Python (Pandas, NumPy) or R
-* **Visualization:** Tableau, Power BI, and Matplotlib/Seaborn
-* **Web/Interactive:** HTML/CSS for interactive visualization exports
-* **Documentation:** Markdown
+* **Data Analysis:** R and R studio
+* **Visualization:** tidyverse R library
 
 ---
 
@@ -27,7 +25,7 @@ The project culminated in a professional presentation of findings and actionable
 The project is organized into three distinct phases, each containing the relevant analysis and exports:
 * **Phase 1: Data Acquisition & EDA**
   * Initial data tidying and wrangling scripts.
-  * Static visualizations (`.png`) representing initial trends.
+  * Static visualizations (`.png` and `.html`) representing initial trends.
 * **Phase 2: Narrative Design**
   * Rough drafts of the data story and visualization layout.
   * Selection of the final presentation format.
@@ -39,9 +37,9 @@ The project is organized into three distinct phases, each containing the relevan
 ---
 
 ## ⬇️ Installation & Viewing
-1. **Static Visualizations:** Navigate to any phase folder and open the `.png` files to view the analysis graphics.
+1. **Static Visualizations:** Navigate to any phase folder and open the `.png` or `.htmla` files to view the analysis graphics.
 2. **Interactive Visualizations:** Open the `.html` files in any modern web browser (Chrome, Firefox, or Safari) to interact with the data layers.
-3. **Data Source:** Primarily utilizes the AASHE STARS program dataset.
+3. **Data Source:** Primarily utilizes the AASHE STARS program datasets.
 
 🚀 **Usage & Presentation**
 The outputs in this repository were used to:
