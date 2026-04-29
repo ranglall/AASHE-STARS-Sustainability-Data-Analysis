@@ -1,7 +1,7 @@
 # University Sustainability Data Analysis
 
 ## ℹ️ Overview
-This project was developed as a comprehensive alternative to the final exam for the Data Science program at the University of St. Thomas. The objective was to utilize real-world data from the AASHE STARS program to evaluate and compare the University of St. Thomas's sustainability performance against other institutions. 
+This project was developed as a comprehensive alternative to the final exam for the Data Science program at the University of St. Thomas. The objective was to use real-world data from the AASHE STARS program to evaluate and compare the University of St. Thomas's sustainability performance against other institutions. 
 
 The project culminated in a professional presentation of findings and actionable insights to the University of St. Thomas Sustainability Department, helping to transform raw data into a narrative for campus stakeholders.
 
@@ -37,7 +37,7 @@ The project is organized into three distinct phases, each containing the relevan
 ---
 
 ## ⬇️ Installation & Viewing
-1. **Static Visualizations:** Navigate to any phase folder and open the `.png` or `.htmla` files to view the analysis graphics.
+1. **Static Visualizations:** Navigate to any phase folder and open the `.png` or `.htmls` files to view the analysis graphics.
 2. **Interactive Visualizations:** Open the `.html` files in any modern web browser (Chrome, Firefox, or Safari) to interact with the data layers.
 3. **Data Source:** Primarily utilizes the AASHE STARS program datasets.
 
